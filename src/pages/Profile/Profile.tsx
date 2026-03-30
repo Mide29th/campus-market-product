@@ -168,7 +168,7 @@ export default function Profile() {
       <section className="profile-section">
         <h3 className="section-title">My Settings</h3>
         <div className="menu-group glass-panel">
-          <div className="menu-item active-bounce">
+          <div className="menu-item active-bounce" onClick={() => navigate('/payment-settings')}>
             <div className="menu-icon-bg"><CreditCard size={18} /></div>
             <div className="menu-text">Payment Settings</div>
             <ChevronRight size={16} className="menu-arrow" />

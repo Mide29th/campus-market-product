@@ -97,6 +97,16 @@ export interface SearchHistory {
   timestamp: string;
 }
 
+export interface Transaction {
+  id: string;
+  type: 'topup' | 'payment' | 'refund';
+  amount: number;
+  date: string;
+  status: 'completed' | 'pending' | 'failed';
+  method: 'wallet' | 'bank' | 'card';
+  description?: string;
+}
+
 export interface ShopContextType {
   products: Product[];
   vendors: Vendor[];
@@ -109,6 +119,7 @@ export interface ShopContextType {
   wishlist: number[];
   recentlyViewed: number[];
   recentlySearched: SearchHistory[];
+  transactions: Transaction[];
   cartTotal: number;
   cartItemCount: number;
   addToCart: (product: Product) => void;
@@ -128,4 +139,5 @@ export interface ShopContextType {
   setUserRole: (role: 'student' | 'vendor') => void;
   updateUserAvatar: (url: string) => void;
   topUpWallet: (amount: number) => void;
+  deductFromWallet: (amount: number) => boolean;
 }

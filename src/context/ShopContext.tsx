@@ -108,6 +108,35 @@ export function ShopProvider({ children }: { children: ReactNode }) {
 
   const topUpWallet = (amount: number) => {
     setUser(prev => ({ ...prev, walletBalance: prev.walletBalance + amount }));
+    
+    const newTransaction: Transaction = {
+      id: `TRX-${Date.now()}`,
+      type: 'topup',
+      amount,
+      date: new Date().toISOString(),
+      status: 'completed',
+      method: 'bank',
+      description: 'Wallet funding'
+    };
+    setTransactions(prev => [newTransaction, ...prev]);
+  };
+
+  const deductFromWallet = (amount: number) => {
+    if (user.walletBalance < amount) return false;
+    
+    setUser(prev => ({ ...prev, walletBalance: prev.walletBalance - amount }));
+    
+    const newTransaction: Transaction = {
+      id: `TRX-${Date.now()}`,
+      type: 'payment',
+      amount,
+      date: new Date().toISOString(),
+      status: 'completed',
+      method: 'wallet',
+      description: 'Order payment'
+    };
+    setTransactions(prev => [newTransaction, ...prev]);
+    return true;
   };
 
   // 5. Conversations State (Messaging)
@@ -190,6 +219,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [recentlyViewed, setRecentlyViewed] = useState<number[]>([]);
   const [recentlySearched, setRecentlySearched] = useState<SearchHistory[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   // --- Messaging Actions ---
 
@@ -294,6 +324,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     wishlist,
     recentlyViewed,
     recentlySearched,
+    transactions,
     cartTotal,
     cartItemCount,
     addToCart,
@@ -312,8 +343,10 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     getProductsByVendor,
     setUserRole,
     updateUserAvatar,
-    topUpWallet
+    topUpWallet,
+    deductFromWallet
   };
+ Broadway
 
   return (
     <ShopContext.Provider value={value}>

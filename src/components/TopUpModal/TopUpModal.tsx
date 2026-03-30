@@ -134,7 +134,7 @@ export default function TopUpModal({ isOpen, onClose }: TopUpModalProps) {
 
         <div className="info-strip">
           <ChevronRight size={16} />
-          <span>Top up via secure Paystack gateway</span>
+          <span>Top up via secure Bank Transfer, Card, or USSD</span>
         </div>
       </div>
     </Modal>

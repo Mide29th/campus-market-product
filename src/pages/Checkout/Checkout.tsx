@@ -3,15 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useShop } from '../../context/ShopContext';
 import { usePaystackPayment } from 'react-paystack';
 import Button from '../../components/Button/Button';
-import { ArrowLeft, MapPin, Package, CreditCard } from 'lucide-react';
+import { ArrowLeft, MapPin, Package, CreditCard, Wallet } from 'lucide-react';
 import { CartItem } from '../../types';
 import './Checkout.css';
 
 export default function Checkout() {
-  const { cart, cartTotal, clearCart, addOrder, user } = useShop();
+  const { cart, cartTotal, clearCart, addOrder, user, deductFromWallet } = useShop();
   const navigate = useNavigate();
   
   const [deliveryMethod, setDeliveryMethod] = useState<'pickup' | 'delivery'>('pickup');
+  const [paymentMethod, setPaymentMethod] = useState<'bank' | 'wallet'>('bank');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   
@@ -48,9 +49,25 @@ export default function Checkout() {
       alert('Please enter a delivery address');
       return;
     }
-    
-    // @ts-ignore
-    initializePayment(onSuccess, onClose);
+
+    if (paymentMethod === 'wallet') {
+      if (user.walletBalance < finalTotal) {
+        alert('Insufficient wallet balance. Please top up or use another method.');
+        return;
+      }
+      
+      const success = deductFromWallet(finalTotal);
+      if (success) {
+        addOrder(cart, finalTotal, deliveryMethod, address);
+        clearCart();
+        navigate('/checkout/success', { replace: true });
+      } else {
+        alert('Payment failed. Please try again.');
+      }
+    } else {
+      // @ts-ignore
+      initializePayment(onSuccess, onClose);
+    }
   };
 
   if (cart.length === 0) {
@@ -124,6 +141,33 @@ export default function Checkout() {
         </section>
 
         <section className="checkout-section border-subtle">
+          <h3>Payment Method</h3>
+          <div className="method-toggles">
+            <button 
+              type="button"
+              className={`method-toggle ${paymentMethod === 'wallet' ? 'active' : ''}`}
+              onClick={() => setPaymentMethod('wallet')}
+            >
+              <Wallet size={20} />
+              <span>Wallet (₦{user.walletBalance.toLocaleString()})</span>
+            </button>
+            <button 
+              type="button"
+              className={`method-toggle ${paymentMethod === 'bank' ? 'active' : ''}`}
+              onClick={() => setPaymentMethod('bank')}
+            >
+              <CreditCard size={20} />
+              <span>Bank / Card</span>
+            </button>
+          </div>
+          {paymentMethod === 'wallet' && user.walletBalance < finalTotal && (
+            <p className="insufficient-notice text-danger animate-fade-in">
+              ⚠️ Insufficient balance. Needs ₦{(finalTotal - user.walletBalance).toLocaleString()} more.
+            </p>
+          )}
+        </section>
+
+        <section className="checkout-section border-subtle">
           <h3>Order Summary</h3>
           <div className="order-items-minimal">
             {cart.map((item: CartItem) => (
@@ -151,11 +195,18 @@ export default function Checkout() {
         </section>
 
         <div className="checkout-action-bar">
-          <Button type="submit" fullWidth size="lg">
-            <CreditCard size={20} />
-            Pay ₦{finalTotal.toLocaleString()}
+          <Button 
+            type="submit" 
+            fullWidth 
+            size="lg"
+            disabled={paymentMethod === 'wallet' && user.walletBalance < finalTotal}
+          >
+            {paymentMethod === 'wallet' ? <Wallet size={20} /> : <CreditCard size={20} />}
+            {paymentMethod === 'wallet' ? 'Pay with Wallet' : `Pay ₦${finalTotal.toLocaleString()}`}
           </Button>
-          <p className="secure-badge">🔒 Secure payment by Paystack</p>
+          <p className="secure-badge">
+            {paymentMethod === 'wallet' ? '🔒 Instant wallet deduction' : '🔒 Secure payment by Paystack'}
+          </p>
         </div>
       </form>
     </div>

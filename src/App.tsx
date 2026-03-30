@@ -23,6 +23,7 @@ import Orders from './pages/Orders/Orders';
 import Wishlist from './pages/Wishlist/Wishlist';
 import RecentlyViewed from './pages/RecentlyViewed/RecentlyViewed';
 import RecentlySearched from './pages/RecentlySearched/RecentlySearched';
+import PaymentSettings from './pages/PaymentSettings/PaymentSettings';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -90,6 +91,7 @@ function AppLayout() {
           <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
           <Route path="/recently-viewed" element={<ProtectedRoute><RecentlyViewed /></ProtectedRoute>} />
           <Route path="/recently-searched" element={<ProtectedRoute><RecentlySearched /></ProtectedRoute>} />
+          <Route path="/payment-settings" element={<ProtectedRoute><PaymentSettings /></ProtectedRoute>} />
           <Route path="/vendor" element={<ProtectedRoute><VendorDashboard /></ProtectedRoute>} />
         </Routes>
       </main>
