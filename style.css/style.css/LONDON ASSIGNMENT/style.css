@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    text-align: center;
+    background-color: yellow;
+    border-radius: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+.ASSIGNMENT {
+    border: 170PX;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 10px;
+   
+}

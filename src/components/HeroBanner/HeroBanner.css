@@ -1,0 +1,116 @@
+.hero-banner {
+  padding: var(--spacing-2) var(--spacing-3);
+  margin-bottom: var(--spacing-2);
+}
+
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--color-bg-card);
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .hero-carousel {
+    height: 320px;
+  }
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 800ms ease-in-out, visibility 800ms ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  /* Very subtle scale in on active for premium feel */
+  animation: slowZoom 8s linear infinite alternate;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--spacing-6);
+  /* The inline style handles the dynamic gradient color */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 80%;
+  color: white;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-3);
+  color: white;
+  /* glass-panel handles the blur and bg */
+}
+
+.hero-content h2 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-2);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+  font-size: var(--text-sm);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-4);
+  max-width: 300px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.hero-pagination {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  z-index: 20;
+}
+
+.hero-pagination .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all var(--transition-fast);
+}
+
+.hero-pagination .dot.active {
+  width: 20px;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 0 8px rgba(255,255,255,0.8);
+}

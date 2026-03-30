@@ -1,0 +1,213 @@
+:root {
+  /* Colors - VENDORA Bright & Catchy Palette */
+  --color-primary: #FF3366; /* Vibrant Pink/Red */
+  --color-primary-hover: #E62E5C;
+  --color-primary-light: rgba(255, 51, 102, 0.15);
+  
+  --color-secondary: #FF9933; /* Vibrant Orange */
+  --color-secondary-hover: #E68A2E;
+  
+  --color-gradient-1: linear-gradient(135deg, #FF3366, #FF9933);
+  --color-gradient-2: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  --color-gradient-3: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  
+  --color-success: #00E676;
+  --color-warning: #FFEA00;
+  --color-danger: #FF1744;
+  
+  /* Neutral scale */
+  --color-bg-main: #F8F9FA;
+  --color-bg-card: #FFFFFF;
+  --color-text-main: #212529;
+  --color-text-muted: #868E96;
+  --color-border: #E9ECEF;
+  
+  /* Typography */
+  --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  
+  /* Radii for modern soft edges */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+  --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.4);
+  --shadow-float: 0 30px 40px -10px rgba(15, 23, 42, 0.15);
+  
+  /* Animations */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base Reset & Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-main);
+  background: #fbc2eb; /* Match app background start */
+  /* Consistent Aurora Background for the entire viewport */
+  background-image: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+  background-size: 200% 200%;
+  background-attachment: fixed;
+  animation: gradientShift 10s ease infinite;
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+  min-height: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile Container Constraint */
+.app-container {
+  width: 100%;
+  max-width: 540px; /* Increased slightly for larger phones / tablets */
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  /* Ensure background fills the container if body doesn't */
+  background: transparent;
+}
+
+@media (max-width: 540px) {
+  .app-container {
+    max-width: 100%;
+    box-shadow: none;
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.header {
+  padding: var(--spacing-4);
+  padding-top: calc(var(--spacing-4) + env(safe-area-inset-top));
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--spacing-3); /* Reduced from spacing-4 (1rem to 0.75rem) */
+  padding-bottom: calc(85px + env(safe-area-inset-bottom)); /* Add extra space for the home bar */
+}
+
+.main-content.no-padding {
+  padding: 0;
+}
+
+/* Utility Animations */
+@keyframes slideUpFade {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInScale {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-slide-up {
+  animation: slideUpFade var(--transition-bounce) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeInScale var(--transition-normal) forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.gradient-text {
+  background: var(--color-gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button Reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  /* Fast tap effect for mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Micro-animations */
+.active-bounce:active {
+  transform: scale(0.95);
+  transition: transform var(--transition-fast);
+}

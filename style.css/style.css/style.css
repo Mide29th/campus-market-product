@@ -1,0 +1,24 @@
+*{
+background: #d7fc34;
+background-size: 10px;
+background-position: center;
+width: 300px;
+height: 200px;
+border: 1px;
+line-height: 5PX;
+border-inline-width: 5PX;
+	height: 10px;
+	padding-left: 8px;
+	border-radius: 5px;
+    border-width: 21px;
+    text-align: center;
+
+}
+
+.KOFO{
+    color: rgb(12, 0, 0);
+    font-family: 'sans-serif';
+    font-weight: 400
+    
+    
+}
