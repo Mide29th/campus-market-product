@@ -21,7 +21,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     name: 'Alex Johnson',
     role: 'student', // student | vendor
     email: 'alex@campus.edu',
-    walletBalance: 2500,
+    walletBalance: 0,
     avatarUrl: undefined // Start with no avatar to show initials
   });
 
@@ -104,6 +104,10 @@ export function ShopProvider({ children }: { children: ReactNode }) {
 
   const updateUserAvatar = (avatarUrl: string) => {
     setUser(prev => ({ ...prev, avatarUrl }));
+  };
+
+  const topUpWallet = (amount: number) => {
+    setUser(prev => ({ ...prev, walletBalance: prev.walletBalance + amount }));
   };
 
   // 5. Conversations State (Messaging)
@@ -307,7 +311,8 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     getProductById,
     getProductsByVendor,
     setUserRole,
-    updateUserAvatar
+    updateUserAvatar,
+    topUpWallet
   };
 
   return (

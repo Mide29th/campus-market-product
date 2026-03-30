@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useShop } from '../../context/ShopContext';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -22,12 +22,14 @@ import {
   Camera
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
+import TopUpModal from '../../components/TopUpModal/TopUpModal';
 import './Profile.css';
 
 export default function Profile() {
   const { user, setUserRole, updateUserAvatar } = useShop();
   const navigate = useNavigate();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [isTopUpOpen, setIsTopUpOpen] = useState(false);
 
   const handleAvatarChange = () => {
     fileInputRef.current?.click();
@@ -92,9 +94,21 @@ export default function Profile() {
               <span className="wallet-amount">₦{user.walletBalance.toLocaleString()}</span>
             </div>
           </div>
-          <Button variant="primary" size="sm" className="topup-btn">Top Up</Button>
+          <Button 
+            variant="primary" 
+            size="sm" 
+            className="topup-btn"
+            onClick={() => setIsTopUpOpen(true)}
+          >
+            Top Up
+          </Button>
         </div>
       </div>
+
+      <TopUpModal 
+        isOpen={isTopUpOpen} 
+        onClose={() => setIsTopUpOpen(false)} 
+      />
 
       {/* 2. Need Assistance? */}
       <section className="profile-section">

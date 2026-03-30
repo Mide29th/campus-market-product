@@ -127,4 +127,5 @@ export interface ShopContextType {
   getProductsByVendor: (vendorId: number) => Product[];
   setUserRole: (role: 'student' | 'vendor') => void;
   updateUserAvatar: (url: string) => void;
+  topUpWallet: (amount: number) => void;
 }
