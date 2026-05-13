@@ -1,0 +1,216 @@
+.orders-page {
+  padding: var(--spacing-4);
+  padding-bottom: 100px;
+}
+
+.orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-6);
+}
+
+.orders-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.empty-orders {
+  text-align: center;
+  padding: var(--spacing-8) var(--spacing-4);
+  border-radius: var(--radius-xl);
+  margin-top: var(--spacing-8);
+}
+
+.empty-icon {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  margin-bottom: var(--spacing-4);
+}
+
+.empty-orders h3 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-2);
+}
+
+.empty-orders p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-6);
+}
+
+.start-btn {
+  background: var(--color-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+/* Order Card Styling */
+.order-card {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-xl);
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-4);
+  padding-bottom: var(--spacing-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.order-id-date {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-id {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+}
+
+.order-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.order-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.order-status-badge.completed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.order-items-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+}
+
+.order-item-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  justify-content: space-between;
+}
+
+.item-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.item-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.item-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.rate-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: rgba(255, 184, 0, 0.1);
+  color: #ffb800;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  transition: all var(--transition-bounce);
+}
+
+.rate-item-btn:hover {
+  background: rgba(255, 184, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.order-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: var(--spacing-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.order-delivery-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.delivery-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.delivery-value {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-main);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-total-price {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.total-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.total-value {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--color-primary);
+}
