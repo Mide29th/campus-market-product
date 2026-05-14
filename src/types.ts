@@ -76,6 +76,7 @@ export interface OrderItem {
 
 export interface Order {
   id: string;
+  userId?: string;           // the buyer's user id
   items: OrderItem[];
   total: number;
   date: string;

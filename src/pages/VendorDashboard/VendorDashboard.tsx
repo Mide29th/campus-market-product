@@ -30,10 +30,22 @@ export default function VendorDashboard() {
   if (!user) return <div className="unauthorized-message">Please log in to access the dashboard.</div>;
 
   const vendorProducts = getProductsByVendor(user.id.toString());
+  // vendorSales: orders that contain at least one item belonging to this vendor.
+  // item.vendorId is populated from the products(vendor_id) join in ShopContext.
+  // We compare as strings because vendor_id in DB is uuid but user.id may be string.
+  const myId = user.id.toString();
   const vendorSales = orders.filter((order: any) =>
-    order.items.some((item: any) => item.vendorId === user.id.toString())
+    order.items.some((item: any) =>
+      item.vendorId?.toString() === myId || item.vendorId === myId
+    )
   );
-  const totalRevenue = vendorSales.reduce((acc: number, curr: any) => acc + curr.total, 0);
+
+  // Revenue: sum only the items that belong to this vendor (order may have items from other vendors)
+  const totalRevenue = vendorSales.reduce((acc: number, order: any) => {
+    const myItems = order.items.filter((item: any) => item.vendorId?.toString() === myId);
+    const myShare = myItems.reduce((s: number, i: any) => s + (i.price * i.quantity), 0);
+    return acc + myShare;
+  }, 0);
 
   // Only show real data — no fake trends or hardcoded client counts
   const stats = [

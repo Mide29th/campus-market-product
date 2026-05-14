@@ -1,67 +1,107 @@
 .checkout-success-page {
+  min-height: 80vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: calc(var(--spacing-4) * -1);
-  padding: var(--spacing-4);
-  background-color: var(--color-bg-card);
-  text-align: center;
+  padding: 2rem 1.5rem;
 }
 
 .success-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.25rem;
+  text-align: center;
   max-width: 400px;
   width: 100%;
 }
 
 .success-icon-wrapper {
-  margin-bottom: var(--spacing-4);
-  background-color: rgba(32, 201, 151, 0.1);
-  width: 120px;
-  height: 120px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
 }
 
 .success-title {
-  font-size: var(--text-2xl);
-  font-weight: 800;
+  font-size: 1.75rem;
+  font-weight: 900;
   color: var(--color-text-main);
-  margin-bottom: var(--spacing-3);
+  letter-spacing: -0.5px;
 }
 
 .success-message {
+  font-size: 0.95rem;
   color: var(--color-text-muted);
-  font-size: var(--text-base);
   line-height: 1.6;
-  margin-bottom: var(--spacing-8);
 }
 
-.action-buttons {
-  width: 100%;
+/* Countdown ring */
+.success-countdown {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  width: 100%;
 }
 
-@keyframes customBounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  60% {
-    transform: translateY(-10px);
-  }
+.countdown-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 900;
 }
 
-.animate-bounce {
-  animation: customBounce 1s ease;
+.success-countdown p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
 }
+
+/* Action buttons */
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.success-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.success-btn:active { transform: scale(0.97); }
+
+.success-btn.primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255,51,102,0.25);
+}
+
+.success-btn.ghost {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-main);
+}
+
+.success-btn:hover { opacity: 0.88; }
